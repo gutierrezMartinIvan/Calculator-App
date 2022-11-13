@@ -51,22 +51,18 @@ class MainActivity : AppCompatActivity() {
             var tvValue = tvInput?.text.toString()
             var prefix = ""
             try {
-                if(tvValue.startsWith("-")){
-                    prefix = "-"
-                    tvValue = tvValue.substring(1)
-                }
-                if (tvValue.contains("-")){
-                    val splitValue = tvValue.split("-")
-                    var one = splitValue[0]
-                    var two = splitValue[1]
-                    if (prefix.isNotEmpty())
-                        one = prefix + one
-                    tvInput?.text = (one.toDouble() - two.toDouble()).toString()
-                }
+                doOperation(tvValue, prefix)
             }catch (e: ArithmeticException){
                 e.printStackTrace()
             }
         }
+    }
+
+    private fun removeZeroAfterDot(result: String): String {
+        var value = result
+        if(result.contains(".0"))
+            value = result.substring(0, result.length - 2)
+        return value
     }
 
     private fun isOperatorAdded(value: String): Boolean {
@@ -74,6 +70,44 @@ class MainActivity : AppCompatActivity() {
             false
         }else {
             value.contains("/") || value.contains("*") || value.contains("+") || value.contains("-")
+        }
+    }
+
+    private fun doOperation(tvValue: String, prefix: String) {
+        var tvValue1 = tvValue
+        var prefix1 = prefix
+        if (tvValue1.startsWith("-")) {
+            prefix1 = "-"
+            tvValue1 = tvValue1.substring(1)
+        }
+        if (tvValue1.contains("-")) {
+            val splitValue = tvValue1.split("-")
+            var one = splitValue[0]
+            var two = splitValue[1]
+            if (prefix1.isNotEmpty())
+                one = prefix1 + one
+            tvInput?.text = removeZeroAfterDot((one.toDouble() - two.toDouble()).toString())
+        } else if (tvValue1.contains("+")) {
+            val splitValue = tvValue1.split("+")
+            var one = splitValue[0]
+            var two = splitValue[1]
+            if (prefix1.isNotEmpty())
+                one = prefix1 + one
+            tvInput?.text = removeZeroAfterDot((one.toDouble() + two.toDouble()).toString())
+        } else if (tvValue1.contains("/")) {
+            val splitValue = tvValue1.split("/")
+            var one = splitValue[0]
+            var two = splitValue[1]
+            if (prefix1.isNotEmpty())
+                one = prefix1 + one
+            tvInput?.text = (one.toDouble() / two.toDouble()).toString()
+        } else {
+            val splitValue = tvValue1.split("*")
+            var one = splitValue[0]
+            var two = splitValue[1]
+            if (prefix1.isNotEmpty())
+                one = prefix1 + one
+            tvInput?.text = removeZeroAfterDot((one.toDouble() * two.toDouble()).toString())
         }
     }
 }
