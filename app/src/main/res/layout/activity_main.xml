@@ -170,7 +170,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_margin="2sp"
-            android:onClick="onDigit"
+            android:onClick="onClear"
             android:text="@string/clr"
             tools:ignore="UsingOnClickInXml" />
         <Button
