@@ -156,10 +156,19 @@
         android:layout_weight="1"
         >
         <Button
+            android:id="@+id/btnDot"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="2sp"
+            android:onClick="onDecimalPoint"
+            android:text="@string/dot"
+            tools:ignore="NestedWeights,UsingOnClickInXml" />
+        <Button
             android:id="@+id/btnZero"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:layout_margin="2sp"
             android:onClick="onDigit"
             android:text="@string/_0"
